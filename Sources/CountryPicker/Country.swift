@@ -15,6 +15,16 @@ public struct Country: Codable {
         self.phoneCode = phoneCode
         self.isoCode = isoCode
     }
+    
+    public init(regionCode _regionCode: String) {
+        self.isoCode = _regionCode
+        
+        if let country = CountryManager.shared.getCountries().first(where: { $0.isoCode == _regionCode }) {
+            self.phoneCode = country.phoneCode
+        } else {
+            self.phoneCode = ""
+        }
+    }
 }
 
 public extension Country {
